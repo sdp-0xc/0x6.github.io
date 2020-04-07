@@ -33,11 +33,8 @@ const graphBtn = document.getElementById('graphBtn');
 let currentTab = 'menu';
 const testing = true;
 
-const xhttp = new XMLHttpRequest();
-
 // Display available functionality when connection is established
 connect.addEventListener('click', () => {
-  startConnection();
   const initialDisplay = document.getElementById('initialDisplay');
   const loading = document.getElementById('loading');
 
@@ -49,7 +46,7 @@ connect.addEventListener('click', () => {
 
   setTimeout(() => {
     loading.classList.add('d-none');
-    if (xhttp.responseText === 'connect' || testing === true) {
+    if (testing) {
       const correct = document.getElementById('correct');
 
       correct.classList.remove('d-none');
@@ -86,7 +83,6 @@ connect.addEventListener('click', () => {
 
 // Disconnect via button in mobile menu
 disconnect.addEventListener('click', () => {
-  endConnection();
   const initialDisplay = document.getElementById('initialDisplay');
   const loading = document.getElementById('loading');
   const mobileNav = document.getElementById('mobileNav');
@@ -135,7 +131,6 @@ disconnect.addEventListener('click', () => {
 });
 
 disconnectTab.addEventListener('click', () => {
-  endConnection();
   const initialDisplay = document.getElementById('initialDisplay');
   const loading = document.getElementById('loading');
   const navigation = document.getElementById('navigation');
@@ -810,115 +805,6 @@ stopCircle.addEventListener('click', () => {
   stopCircle.classList.add('d-none');
 });
 
-// Event Listeners for buttons in manual control
-// Pressing a button "activates" manualControl
-// Mode, where resizing the interface won't throw
-// the user back to menu
-upLeftBtn.addEventListener('click', () => {
-  currentTab = 'manualControl';
-  sendCommand('up-left');
-});
-
-upBtn.addEventListener('click', () => {
-  currentTab = 'manualControl';
-  sendCommand('up');
-});
-
-upRightBtn.addEventListener('click', () => {
-  currentTab = 'manualControl';
-  sendCommand('up-right');
-});
-
-leftBtn.addEventListener('click', () => {
-  currentTab = 'manualControl';
-  sendCommand('left');
-});
-
-stopBtn.addEventListener('click', () => {
-  currentTab = 'manualControl';
-  sendCommand('stop');
-});
-
-rightBtn.addEventListener('click', () => {
-  currentTab = 'manualControl';
-  sendCommand('right');
-});
-
-downLeftBtn.addEventListener('click', () => {
-  currentTab = 'manualControl';
-  sendCommand('down-left');
-});
-
-downBtn.addEventListener('click', () => {
-  currentTab = 'manualControl';
-  sendCommand('down');
-});
-
-downRightBtn.addEventListener('click', () => {
-  currentTab = 'manualControl';
-  sendCommand('down-right');
-});
-
-//Event on pressing arrow keys
-document.addEventListener('keydown', e => {
-  let direction;
-  switch (e.keyCode) {
-    case 38:
-      direction = 'up';
-      break;
-    case 40:
-      direction = 'down';
-      break;
-    case 37:
-      direction = 'left';
-      break;
-    case 39:
-      direction = 'right';
-      break;
-  }
-
-  if (direction) {
-    sendCommand(direction);
-  }
-});
-
-function startConnection() {
-  const url = '/connect';
-
-  xhttp.open('POST', url, true);
-  xhttp.setRequestHeader('Content-type', 'application/json');
-
-  const data = {
-    command: 'connect'
-  };
-  xhttp.send(JSON.stringify(data));
-}
-
-function endConnection() {
-  const url = '/disconnect';
-
-  xhttp.open('POST', url, true);
-  xhttp.setRequestHeader('Content-type', 'application/json');
-
-  const data = {
-    command: 'disconnect'
-  };
-  xhttp.send(JSON.stringify(data));
-}
-
-// Sends JSON object with 'command' field. 'command' is string that indicates direction of movement.
-function sendCommand(direction) {
-  const url = '/send';
-
-  xhttp.open('POST', url, true);
-  xhttp.setRequestHeader('Content-type', 'application/json');
-
-  const data = {
-    command: direction
-  };
-  xhttp.send(JSON.stringify(data));
-}
-
 emailInput.addEventListener('input', () => {
   if (validateEmail(emailInput.value)) {
     sendBtn.classList.remove('disabled');
@@ -944,30 +830,7 @@ function validateEmail(mail) {
 }
 
 takePhoto.addEventListener('click', () => {
-  // xhttp.open('GET', '/photo', true);
-  // xhttp.send();
-  // xhttp.onreadystatechange = () => {
-  //   const snapshot = document.getElementById('snapshot');
-
-  //   snapshot.src = xhttp.responseText;
-  // };
   snapshot.src = '../static/img/raw_image.jpg';
-});
-
-sendBtn.addEventListener('click', () => {
-  const image = document
-    .getElementById('snapshot')
-    .src.replace('http://127.0.0.1:5000/', '');
-
-  xhttp.open('POST', '/email', true);
-  xhttp.setRequestHeader('Content-type', 'application/json');
-
-  const data = {
-    command: 'email',
-    img: image,
-    email: emailInput.value
-  };
-  xhttp.send(JSON.stringify(data));
 });
 
 $(function() {
