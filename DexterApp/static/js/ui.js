@@ -721,7 +721,9 @@ window.addEventListener('resize', () => {
     }
   } else if (
     initialDisplay.classList.contains('d-none') &&
-    loading.classList.contains('d-none')
+    loading.classList.contains('d-none') &&
+    correct.classList.contains('d-none') &&
+    incorrect.classList.contains('d-none')
   ) {
     navigation.classList.add('d-none');
     if (currentTab === 'menu') {
