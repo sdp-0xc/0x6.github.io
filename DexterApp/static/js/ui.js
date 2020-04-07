@@ -602,6 +602,8 @@ graphBtn.addEventListener('click', () => {
 window.addEventListener('resize', () => {
   const initialDisplay = document.getElementById('initialDisplay');
   const loading = document.getElementById('loading');
+  const correct = document.getElementById('correct');
+  const incorrect = document.getElementById('incorrect');
   const navigation = document.getElementById('navigation');
   const manualControlBody = document.getElementById('manualControlBody');
   const photoBody = document.getElementById('photoBody');
@@ -613,7 +615,9 @@ window.addEventListener('resize', () => {
   if (
     window.innerWidth >= 768 &&
     initialDisplay.classList.contains('d-none') &&
-    loading.classList.contains('d-none')
+    loading.classList.contains('d-none') &&
+    correct.classList.contains('d-none') &&
+    incorrect.classList.contains('d-none')
   ) {
     navigation.classList.remove('d-none');
     initialDisplay.parentElement.parentElement.classList.remove('d-none');
