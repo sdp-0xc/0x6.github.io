@@ -127,7 +127,7 @@ disconnect.addEventListener('click', () => {
 
   eraseCircle.classList.remove('d-none');
   stopCircle.classList.add('d-none');
-  snapshot.src = '...';
+  snapshot.src = '';
 });
 
 disconnectTab.addEventListener('click', () => {
@@ -187,7 +187,7 @@ disconnectTab.addEventListener('click', () => {
 
   graphCircle.classList.remove('d-none');
   stopGraphCircle.classList.add('d-none');
-  snapshot.src = '...';
+  snapshot.src = '';
 });
 
 eraseBtnBig.addEventListener('click', () => {
