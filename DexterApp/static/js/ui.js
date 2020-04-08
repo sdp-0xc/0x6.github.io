@@ -812,7 +812,7 @@ function validateEmail(mail) {
 }
 
 takePhoto.addEventListener('click', () => {
-  snapshot.src = '../static/img/raw_image.jpg';
+  snapshot.src = './DexterApp/static/img/raw_image.jpg';
 });
 
 $(function() {
